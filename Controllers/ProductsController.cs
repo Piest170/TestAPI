@@ -75,34 +75,34 @@ public class ProductsController : ControllerBase
         }
     }
 
-    // // Assignment2 Function that Calculate a total revenue of an order.
-    // [HttpGet("total-revenue")]
-    // public async Task<ActionResult<IEnumerable<double>>> Calculate()
-    // {
-    //     try
-    //     {
-    //         /* ปัญหาที่พบคือ ถ้าสมมุติมีสินค้ามากขึ้นจะทำให้เกิดการส่งข้อมูลที่ช้า ดังนั้น การเปลี่ยนแก้ไข จาก for loop มาในส่วนนี้จะทำให้การทำงานการส่งข้อมูลที่เร็ว 
-    //             และรองรับข้อมูลได้มากกว่าการส่งข้อมูลที่ละชิ้นจาก for loop โดยที่จะทำการคำนวณข้อมูลใน array ที่เรียงตามในแต่ละชุด array 
-    //             ในกรณีของ C# เราสามารถดึงข้อมูลจากฐาน Database โดยตรงได้จาก การใช้ _context.Products.ToListAsync() 
-    //         */
+    // Assignment2 Function that Calculate a total revenue of an order.
+    [HttpGet("total-revenue")]
+    public async Task<ActionResult<IEnumerable<double>>> Calculate()
+    {
+        try
+        {
+            /* ปัญหาที่พบคือ ถ้าสมมุติมีสินค้ามากขึ้นจะทำให้เกิดการส่งข้อมูลที่ช้า ดังนั้น การเปลี่ยนแก้ไข จาก for loop มาในส่วนนี้จะทำให้การทำงานการส่งข้อมูลที่เร็ว 
+                และรองรับข้อมูลได้มากกว่าการส่งข้อมูลที่ละชิ้นจาก for loop โดยที่จะทำการคำนวณข้อมูลใน array ที่เรียงตามในแต่ละชุด array 
+                ในกรณีของ C# เราสามารถดึงข้อมูลจากฐาน Database โดยตรงได้จาก การใช้ _context.Products.ToListAsync() 
+            */
 
-    //         // optimized code
-    //         var products = await _context.Products.ToListAsync();
-    //         if (products.Count == 0)
-    //         {
-    //             return BadRequest("No order items.");
-    //         }
-    //         double totalrevenue = 0;
-    //         foreach (var product in products)
-    //         {
-    //             totalrevenue = + product.Price;
-    //         }
+            // optimized code
+            var products = await _context.Products.ToListAsync();
+            if (products.Count == 0)
+            {
+                return BadRequest("No order items.");
+            }
+            double totalrevenue = 0;
+            foreach (var product in products)
+            {
+                totalrevenue = + product.Price;
+            }
 
-    //         return Ok(totalrevenue);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return StatusCode(500, "An error occurred while cauculate. " + ex.Message);
-    //     }
-    // }
+            return Ok(totalrevenue);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while cauculate. " + ex.Message);
+        }
+    }
 }
