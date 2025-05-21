@@ -85,18 +85,23 @@ public class ProductsController : ControllerBase
                 และรองรับข้อมูลได้มากกว่าการส่งข้อมูลที่ละชิ้นจาก for loop โดยที่จะทำการคำนวณข้อมูลใน array ที่เรียงตามในแต่ละชุด array 
                 ในกรณีของ C# เราสามารถดึงข้อมูลจากฐาน Database โดยตรงได้จาก การใช้ _context.Products.ToListAsync() 
             */
-
-            // optimized code
             var products = await _context.Products.ToListAsync();
             if (products.Count == 0)
             {
                 return BadRequest("No order items.");
             }
+
+            // original code
+            /*
             double totalrevenue = 0;
             foreach (var product in products)
             {
                 totalrevenue = + product.Price;
             }
+            */
+
+            // optimized code
+            double totalrevenue = products.Sum(item => item.Price * item.Quantity);
 
             return Ok(totalrevenue);
         }
