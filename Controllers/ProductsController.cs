@@ -86,7 +86,7 @@ public class ProductsController : ControllerBase
                 ในกรณีของ C# เราสามารถดึงข้อมูลจากฐาน Database โดยตรงได้จาก การใช้ _context.Products.ToListAsync() 
             */
             var products = await _context.Products.ToListAsync();
-            if (products.Count == 0)
+            if (products.Count == 0 || products == null)
             {
                 return BadRequest("No order items.");
             }
@@ -96,7 +96,7 @@ public class ProductsController : ControllerBase
             double totalrevenue = 0;
             foreach (var product in products)
             {
-                totalrevenue = + product.Price;
+                totalrevenue += product.Price;
             }
             */
 
